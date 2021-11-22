@@ -256,9 +256,6 @@ class Note extends FlxSprite
 		}
 		if(isSustainNote) {
 			scale.y = lastScaleY;
-			if(ClientPrefs.keSustains) {
-				scale.y *= 0.75;
-			}
 		}
 		updateHitbox();
 

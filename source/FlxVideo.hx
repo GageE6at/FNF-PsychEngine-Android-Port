@@ -1,4 +1,4 @@
-#if web
+#if web || android
 import openfl.net.NetConnection;
 import openfl.net.NetStream;
 import openfl.events.NetStatusEvent;
@@ -21,7 +21,7 @@ class FlxVideo extends FlxBasic {
 	public function new(name:String) {
 		super();
 
-		#if web
+		#if web || android
 		var player:Video = new Video();
 		player.x = 0;
 		player.y = 0;
