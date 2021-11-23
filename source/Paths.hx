@@ -180,11 +180,6 @@ class Paths
 	{
 		return getPath('images/$key.png', IMAGE, library);
 	}
-
-	inline static public function imagelua(key:String, ?library:String):Dynamic
-	{
-		return getPath(Main.path + 'images/$key.png', IMAGE, library);
-	}
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{

@@ -663,16 +663,10 @@ class PlayState extends MusicBeatState
 
         var doPush:Bool = false;
 
-		if(openfl.utils.Assets.exists("assets/stages/" + curStage + ".lua"))
-		{
-			var path = Paths.luaAsset("stages/" + curStage);
-			var luaFile = openfl.Assets.getBytes(path);
-
-			FileSystem.createDirectory(Main.path + "assets");
-			FileSystem.createDirectory(Main.path + "assets/stages");
-
-			File.saveBytes(Paths.lua("stages/" + curStage), luaFile);
-
+		var doPush:Bool = false;
+		var luaFile:String = 'stages/' + curStage + '.lua';
+		luaFile = Paths.getPreloadPath(luaFile);
+		if(OpenFlAssets.exists(luaFile)) {
 			doPush = true;
 		}
 
@@ -689,7 +683,7 @@ class PlayState extends MusicBeatState
 		}
 		
 		if(doPush) 
-			luaArray.push(new FunkinLua(Paths.lua("stages/" + curStage)));
+			luaArray.push(new FunkinLua(luaFile));
 
 		if(!modchartSprites.exists('blammedLightsBlack')) { //Creates blammed light black fade in case you didn't make your own
 			blammedLightsBlack = new ModchartSprite(FlxG.width * -0.5, FlxG.height * -0.5);
@@ -827,36 +821,20 @@ class PlayState extends MusicBeatState
 		generateSong(SONG.song);
 		
 		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys()) 
-		{
-			if(openfl.utils.Assets.exists("assets/custom_notetypes/" + notetype + ".lua"))
-			{
-				var path = Paths.luaAsset("custom_notetypes/" + notetype);
-				var luaFile = openfl.Assets.getBytes(path);
-
-				FileSystem.createDirectory(Main.path + "assets");
-				FileSystem.createDirectory(Main.path + "assets/custom_notetypes");
-
-				File.saveBytes(Paths.lua("custom_notetypes/" + notetype), luaFile);
-
-				luaArray.push(new FunkinLua(Paths.lua("custom_notetypes/" + notetype)));
+		for (notetype in noteTypeMap.keys()) {
+			var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
+		    luaToLoad = Paths.getPreloadPath(luaToLoad);			
+			if(OpenFlAssets.exists(luaToLoad)) {
+				luaArray.push(new FunkinLua(luaToLoad));
 			}
 		}
-		for (event in eventPushedMap.keys()) 
-		{
-			if(openfl.utils.Assets.exists("assets/custom_events/" + event + ".lua"))
-			{
-				var path = Paths.luaAsset("custom_events/" + event);
-				var luaFile = openfl.Assets.getBytes(path);
-
-				FileSystem.createDirectory(Main.path + "assets");
-				FileSystem.createDirectory(Main.path + "assets/event");
-
-				File.saveBytes(Paths.lua("custom_events/" + event), luaFile);
-
-				luaArray.push(new FunkinLua(Paths.lua("custom_events/" + event)));
+		for (event in eventPushedMap.keys()) {
+			var luaToLoad:String = 'custom_events/' + event + '.lua';
+		    luaToLoad = Paths.getPreloadPath(luaToLoad);			
+			if(OpenFlAssets.exists(luaToLoad)) {
+				luaArray.push(new FunkinLua(luaToLoad));
 			}
-		}		
+		}	
 		#end		
 
 		noteTypeMap.clear();
@@ -978,22 +956,14 @@ class PlayState extends MusicBeatState
 
 		#if (MODS_ALLOWED && LUA_ALLOWED)
 		var doPush:Bool = false;
-
-		if(openfl.utils.Assets.exists("assets/data/" + Paths.formatToSongPath(SONG.song) + "/script.lua"))
-	    {
-			var path = Paths.luaAsset("data/" + Paths.formatToSongPath(SONG.song) + "/script");
-			var luaFile = openfl.Assets.getBytes(path);
-
-			FileSystem.createDirectory(Main.path + "assets");
-			FileSystem.createDirectory(Main.path + "assets/data/" + Paths.formatToSongPath(SONG.song));
-
-			File.saveBytes(Paths.lua("data/" + Paths.formatToSongPath(SONG.song) + "/script"), luaFile);
-
-			doPush = true;
-		}
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script.lua';
+	    luaFile = Paths.getPreloadPath(luaFile);
+		    if(OpenFlAssets.exists(luaFile)) {
+				doPush = true;
+			}
 		
 		if(doPush) 
-			luaArray.push(new FunkinLua(Paths.lua("data/" + Paths.formatToSongPath(SONG.song) + "/script")));
+			luaArray.push(new FunkinLua(luaFile));			
 		#end
 
 		// if (SONG.song == 'South')
