@@ -964,7 +964,7 @@ class CharacterEditorState extends MusicBeatState
 		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 
 		if(!charDropDown.dropPanel.visible) {
-			if (FlxG.keys.justPressed.ESCAPE || _virtualpad.buttonB.justPressed) {
+			if (FlxG.keys.justPressed.ESCAPE #if mobileC || _virtualpad.buttonB.justPressed #end) {
 				if(goToPlayState) {
 					MusicBeatState.switchState(new PlayState());
 				} else {
@@ -1006,12 +1006,12 @@ class CharacterEditorState extends MusicBeatState
 			}
 
 			if(char.animationsArray.length > 0) {
-				if (FlxG.keys.justPressed.W || _virtualpad.buttonX.justPressed)
+				if (FlxG.keys.justPressed.W #if mobileC || _virtualpad.buttonX.justPressed #end)
 				{
 					curAnim -= 1;
 				}
 
-				if (FlxG.keys.justPressed.S || _virtualpad.buttonY.justPressed)
+				if (FlxG.keys.justPressed.S #if mobileC || _virtualpad.buttonY.justPressed #end)
 				{
 					curAnim += 1;
 				}
@@ -1022,13 +1022,13 @@ class CharacterEditorState extends MusicBeatState
 				if (curAnim >= char.animationsArray.length)
 					curAnim = 0;
 
-				if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE || _virtualpad.buttonA.justPressed)
+				if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE #if mobileC || _virtualpad.buttonA.justPressed #end)
 				{
 					char.playAnim(char.animationsArray[curAnim].anim, true);
 					genBoyOffsets();
 				}
 
-				var controlArray:Array<Bool> = [FlxG.keys.justPressed.LEFT, FlxG.keys.justPressed.RIGHT, FlxG.keys.justPressed.UP, FlxG.keys.justPressed.DOWN, _virtualpad.buttonRight.justPressed, _virtualpad.buttonLeft.justPressed, _virtualpad.buttonUp.justPressed, _virtualpad.buttonDown.justPressed];
+				var controlArray:Array<Bool> = [FlxG.keys.justPressed.LEFT, FlxG.keys.justPressed.RIGHT, FlxG.keys.justPressed.UP, FlxG.keys.justPressed.DOWN #if mobileC, _virtualpad.buttonRight.justPressed, _virtualpad.buttonLeft.justPressed, _virtualpad.buttonUp.justPressed, _virtualpad.buttonDown.justPressed #end];
 				for (i in 0...controlArray.length) {
 					if(controlArray[i]) {
 						var holdShift = FlxG.keys.pressed.SHIFT;
