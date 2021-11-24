@@ -262,9 +262,9 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		#if MODS_ALLOWED
-	 	Paths.destroyLoadedImages(resetSpriteCache);
-		#end
+        #if MODS_ALLOWED
+ 		Paths.destroyLoadedImages(resetSpriteCache);
+  		#end	
 		resetSpriteCache = false;
 
 		if (FlxG.sound.music != null)
@@ -683,7 +683,7 @@ class PlayState extends MusicBeatState
 		}
 		
 		if(doPush) 
-			luaArray.push(new FunkinLua(luaFile));
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 
 		if(!modchartSprites.exists('blammedLightsBlack')) { //Creates blammed light black fade in case you didn't make your own
 			blammedLightsBlack = new ModchartSprite(FlxG.width * -0.5, FlxG.height * -0.5);
@@ -825,14 +825,14 @@ class PlayState extends MusicBeatState
 			var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
 		    luaToLoad = Paths.getPreloadPath(luaToLoad);			
 			if(OpenFlAssets.exists(luaToLoad)) {
-				luaArray.push(new FunkinLua(luaToLoad));
+				luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
 			}
 		}
 		for (event in eventPushedMap.keys()) {
 			var luaToLoad:String = 'custom_events/' + event + '.lua';
 		    luaToLoad = Paths.getPreloadPath(luaToLoad);			
 			if(OpenFlAssets.exists(luaToLoad)) {
-				luaArray.push(new FunkinLua(luaToLoad));
+				luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
 			}
 		}	
 		#end		
@@ -963,7 +963,7 @@ class PlayState extends MusicBeatState
 			}
 		
 		if(doPush) 
-			luaArray.push(new FunkinLua(luaFile));			
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));			
 		#end
 
 		// if (SONG.song == 'South')
